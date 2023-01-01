@@ -5,7 +5,7 @@ import AuctionTable from "./components/AuctionTable";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App p-40">
       <AuctionTable></AuctionTable>
     </div>
   );
