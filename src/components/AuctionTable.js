@@ -1,8 +1,24 @@
-import { Button, Col, Divider, Input, Row } from "antd";
-import React from "react";
+import {
+  Button,
+  Col,
+  DatePicker,
+  Divider,
+  Input,
+  Row,
+  Select,
+  TimePicker,
+} from "antd";
+import React, { useState } from "react";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 
+const { Option } = Select;
+const PickerWithType = ({ type, onChange }) => {
+  if (type === "time") return <TimePicker onChange={onChange} />;
+  if (type === "date") return <DatePicker onChange={onChange} />;
+  return <DatePicker picker={type} onChange={onChange} />;
+};
 const AuctionTable = () => {
+  const [type, setType] = useState("time");
   return (
     <div>
       {" "}
@@ -68,7 +84,7 @@ const AuctionTable = () => {
           </Col>
           <Divider type="vertical" />
           <Col span={3}>
-            <Input
+            <DatePicker
               size="large"
               style={{
                 width: "50%",
@@ -77,6 +93,14 @@ const AuctionTable = () => {
           </Col>
           <Divider type="vertical" />
           <Col span={3}>
+            <Select value={type} onChange={setType}>
+              <Option value="time">Time</Option>
+              <Option value="date">Date</Option>
+              <Option value="week">Week</Option>
+              <Option value="month">Month</Option>
+              <Option value="quarter">Quarter</Option>
+              <Option value="year">Year</Option>
+            </Select>
             <Input
               size="large"
               style={{
