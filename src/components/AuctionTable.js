@@ -6,6 +6,7 @@ import {
   Input,
   Row,
   Select,
+  Space,
   TimePicker,
 } from "antd";
 import React, { useState } from "react";
@@ -13,9 +14,9 @@ import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 const PickerWithType = ({ type, onChange }) => {
-  if (type === "time") return <TimePicker onChange={onChange} />;
-  if (type === "date") return <DatePicker onChange={onChange} />;
-  return <DatePicker picker={type} onChange={onChange} />;
+  if (type === "time") return <TimePicker size="large" onChange={onChange} />;
+  if (type === "date") return <DatePicker size="large" onChange={onChange} />;
+  return <DatePicker size="large" picker={type} onChange={onChange} />;
 };
 const AuctionTable = () => {
   const [type, setType] = useState("time");
@@ -24,7 +25,7 @@ const AuctionTable = () => {
       {" "}
       <div className="border rounded-md ">
         {/* Table Header */}
-        <Row className=" h-12 flex items-center p-5">
+        <Row span={24} className=" h-12 flex items-center p-5">
           <Col span={3} className="font-semibold ">
             Quantity
           </Col>
@@ -52,6 +53,7 @@ const AuctionTable = () => {
           <Col span={3} className="text-center font-semibold ">
             Buy Now
           </Col>
+          <Col span={2} className="text-center font-semibold "></Col>
         </Row>
 
         {/* Tble Body */}
@@ -93,20 +95,20 @@ const AuctionTable = () => {
           </Col>
           <Divider type="vertical" />
           <Col span={3}>
-            <Select value={type} onChange={setType}>
-              <Option value="time">Time</Option>
-              <Option value="date">Date</Option>
-              <Option value="week">Week</Option>
-              <Option value="month">Month</Option>
-              <Option value="quarter">Quarter</Option>
-              <Option value="year">Year</Option>
-            </Select>
-            <Input
-              size="large"
-              style={{
-                width: "50%",
-              }}
-            />
+            <Space>
+              <Select size="large" value={type} onChange={setType}>
+                <Option value="time">Time</Option>
+                <Option value="date">Date</Option>
+                <Option value="week">Week</Option>
+                <Option value="month">Month</Option>
+                <Option value="quarter">Quarter</Option>
+                <Option value="year">Year</Option>
+              </Select>
+              <PickerWithType
+                type={type}
+                onChange={(value) => console.log(value)}
+              />
+            </Space>
           </Col>
           <Divider type="vertical" />
           <Col span={3}>
@@ -126,7 +128,8 @@ const AuctionTable = () => {
               }}
             />
           </Col>
-          <Col flex="1" className="p-1 border-r-0 space-x-3 text-center">
+          <Divider type="vertical" />
+          <Col span={1} className="  text-center space-x-3">
             <EditOutlined className="text-lg" />
             <DeleteOutlined className="text-lg" />
           </Col>
